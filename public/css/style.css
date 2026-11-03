@@ -4,6 +4,25 @@ body {
 	font-family: "Times New Roman", Times, serif;
 	margin: 0;
 }
+
+.pagination {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.page-btn {
+	margin: 4px;
+	padding: 8px 12px;
+	border: none;
+	background-color: #f5d28c;
+	cursor: pointer;
+}
+
+.page-btn.active {
+	background-color: #0b5c6b;
+	color: white;
+}
+
 #background {
 	background: url(../images/bg-pattern.jpg) repeat-x center top;
 	min-height: 1318px;
@@ -32,7 +51,22 @@ img {
 #header {
 	margin-bottom: 20px;
 	padding-top: 20px;
+	position: relative;
 }
+
+#authSection {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+#authSection a {
+  margin-left: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 /** Logo **/
 #logo {
 	float: left;
@@ -41,16 +75,16 @@ img {
 }
 /** Navigation **/
 #navigation {
-	background: url(../images/bg-navigation.png) no-repeat;
+	background: #4f9c96;
 	clear: both;
 	height: 50px;
-	width: 860px;
+	width: 984px;
 	margin: 0 auto;
 	padding: 1px;
 }
 #navigation ul {
 	display: inline-block;
-	width: 860px;
+	width: 984px;
 	list-style: none;
 	margin: 0;
 	padding: 0;

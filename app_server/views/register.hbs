@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="background">
+    <div id="page">
+      {{> header}}
+    </div>
+
+    <div id="contents">
+      <div class="box">
+        <div>
+          <div class="body">
+            <h1>Register</h1>
+
+            <form id="registerForm" class="auth-form">
+              <p>
+                <label for="name">Name</label><br>
+                <input type="text" id="name" placeholder="Name" required />
+              </p>
+
+              <p>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" placeholder="Email" required />
+              </p>
+
+              <p>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" placeholder="Password" required />
+              </p>
+
+              <p>
+                <button type="submit" class="btn">Register</button>
+              </p>
+            </form>
+
+            <p id="registerMessage"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{> footer}}
+  </div>
+
+  <script>
+    // Debug message to confirm script is loaded
+    console.log('register script loaded');
+
+    // Listen for form submission
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent page refresh
+      console.log('submitted');
+
+      // Get user input values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Send registration request to backend API
+      fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' // Sending JSON data
+        },
+        body: JSON.stringify({ name, email, password }) // Convert data to JSON
+      })
+        .then(function (response) {
+          return response.json(); // Parse response from server
+        })
+        .then(function (data) {
+          console.log('API response object:', data);
+
+          // Extract token from response
+          const token = data.token ? data.token : data;
+
+          // If registration successful, save token and redirect
+          if (token) {
+            console.log('User registered successfully');
+            localStorage.setItem('travlr-token', token); // Store JWT token
+            window.location.href = '/'; // Redirect to home page
+          } else {
+            // Show error message if registration failed
+            document.getElementById('registerMessage').textContent = 'Registration failed';
+          }
+        })
+        .catch(function (err) {
+          console.error('register error:', err);
+
+          // Show generic error message
+          document.getElementById('registerMessage').textContent = 'Server error';
+        });
+    });
+  </script>
+</body>
+
+</html>

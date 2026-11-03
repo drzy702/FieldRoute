@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="background">
+    <div id="page">
+      {{> header}}
+    </div>
+
+    <div id="contents">
+      <div class="box">
+        <div>
+          <div class="body">
+            <h1>Login</h1>
+
+            <form id="loginForm" class="auth-form">
+              <p>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" placeholder="Email" required />
+              </p>
+
+              <p>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" placeholder="Password" required />
+              </p>
+
+              <p>
+                <button type="submit" class="btn">Login</button>
+              </p>
+            </form>
+
+            <p id="loginMessage"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{> footer}}
+  </div>
+
+  <script>
+    // Debug message to confirm script is loaded in the browser
+    console.log('login script loaded');
+
+    // Listen for form submission
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent page refresh on form submit
+      console.log('login submitted');
+
+      // Get values entered by the user
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Send login request to backend API
+      fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' // Tell server we're sending JSON
+        },
+        body: JSON.stringify({ email, password }) // Convert data to JSON
+      })
+        .then(function (response) {
+          // If login fails, extract error message and throw it
+          if (!response.ok) {
+            return response.json().then(function (data) {
+              throw new Error(data.message || 'Login failed');
+            });
+          }
+          return response.json(); // If successful, parse response
+        })
+        .then(function (data) {
+          console.log('login response:', data);
+
+          // Get token from response (handles different formats)
+          const token = data.token ? data.token : data;
+
+          // If token exists, save it and redirect user
+          if (token) {
+            localStorage.setItem('travlr-token', token); // Store JWT in browser
+            window.location.href = '/'; // Redirect to home page
+          } else {
+            // Show message if something went wrong
+            document.getElementById('loginMessage').textContent = 'Login failed';
+          }
+        })
+        .catch(function (err) {
+          console.error('login error:', err);
+
+          // Display error message to user
+          document.getElementById('loginMessage').textContent =
+            err.message || 'Server error';
+        });
+    });
+  </script>
+</body>
+
+</html>

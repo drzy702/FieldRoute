@@ -1,0 +1,81 @@
+<div id="header">
+				<div id="logo">
+					<a href="index.html"><img src="images/logo.png" alt="LOGO" height="100" width="200"></a>
+				</div>
+				<div id="navigation">
+					<ul>
+						<li>
+							<a href="index.html">Home</a>
+						</li>
+						<li class="active">
+							<a href="/travel">Travel</a>
+						</li>
+						<li>
+							<a href="/bookings">My Bookings</a>
+						</li>
+						<li>
+							<a href="rooms.html">Rooms</a>
+						</li>
+						<li>
+							<a href="meals.html">Meals</a>
+						</li>
+						<li>
+							<a href="news.html">News</a>
+						</li>
+						<li>
+							<a href="about.html">About</a>
+						</li>
+						<li>
+							<a href="contact.html">Contact</a>
+						</li>
+					</ul>
+				</div>
+
+		<div id="authSection">
+		<!-- Login link (shown when user is NOT logged in) -->
+		<a href="/login" id="loginLink">Login</a>
+
+		<!-- Register link (shown when user is NOT logged in) -->
+		<a href="/register" id="registerLink">Register</a>
+
+		<!-- Logout link (hidden by default, shown when logged in) -->
+		<a href="#" id="logoutLink" style="display:none;">Logout</a>
+		</div>
+
+		<script>
+		// Wait for page to fully load before running script
+		document.addEventListener('DOMContentLoaded', function () {
+
+			// Get JWT token from browser storage
+			const token = localStorage.getItem('travlr-token');
+
+			// Get references to auth links
+			const loginLink = document.getElementById('loginLink');
+			const registerLink = document.getElementById('registerLink');
+			const logoutLink = document.getElementById('logoutLink');
+			const logoutBtn = document.getElementById('logoutLink'); // same element used for click
+
+			// If token exists, user is logged in
+			if (token) {
+			if (loginLink) loginLink.style.display = 'none';        // hide login
+			if (registerLink) registerLink.style.display = 'none';  // hide register
+			if (logoutLink) logoutLink.style.display = 'inline';    // show logout
+			} else {
+			// If no token, user is not logged in
+			if (loginLink) loginLink.style.display = 'list-item';   // show login
+			if (registerLink) registerLink.style.display = 'list-item'; // show register
+			if (logoutLink) logoutLink.style.display = 'none';      // hide logout
+			}
+
+			// Add logout click event
+			if (logoutBtn) {
+			logoutBtn.addEventListener('click', function (e) {
+				e.preventDefault(); // prevent default link behavior
+
+				localStorage.removeItem('travlr-token'); // remove token (log user out)
+
+				window.location.href = '/'; // redirect to home page
+			});
+			}
+		});
+		</script>

@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 20px;
+  background: transparent;
+}
+
+.filter-bar {
+  margin: 15px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.filter-bar input,
+.filter-bar select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.pagination-controls {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.btn-info {
+  background-color: #1da1f2;
+  border: none;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #0d8ddb;
+}
+
+.btn-danger {
+  background-color: #ff6b35;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #e85a2a;
+}

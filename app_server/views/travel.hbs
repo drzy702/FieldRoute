@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Dive Sites - Bhaccasyoniztas Beach Resort Website Template</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+	<div id="background">
+		<div id="page">
+			{{> header}}
+		</div>
+		<div id="contents">
+			<div class="box">
+				<div>
+					<div class="body">
+						<h1>Travel</h1>
+
+						{{!-- Search and filter controls for trips --}}
+						<div style="margin-bottom: 20px;">
+							<input type="text" id="searchInput" placeholder="Search trips..." />
+
+							{{!-- Filter by max price --}}
+							<select id="priceFilter">
+								<option value="">All Prices</option>
+								<option value="1000">Under $1000</option>
+								<option value="2000">Under $2000</option>
+								<option value="3000">Under $3000</option>
+							</select>
+
+							{{!-- Filter by star rating --}}
+							<select id="starFilter">
+								<option value="">All Ratings</option>
+								<option value="5">5 Stars Only</option>
+								<option value="4">4+ Stars</option>
+								<option value="3">3+ Stars</option>
+								<option value="2">2+ Stars</option>
+							</select>
+
+
+							{{!-- Sort trips by price --}}
+							<select id="sortOption">
+								<option value="">Sort By</option>
+								<option value="low">Price: Low to High</option>
+								<option value="high">Price: High to Low</option>
+							</select>
+						</div>
+						<ul id="sites">
+							{{#each trips}}
+							{{!-- <li>
+								<a href="error.hbs"><img src="images/{{this.image}}" alt="Img" </a>
+									<h2><a href="/travel">{{this.name}}</a></h2>
+									{{{this.description}}}
+							</li> --}}
+							<li>
+								<a href="/api/trips/{{this.code}}">
+									<img src="images/{{this.image}}" alt="Img">
+								</a>
+
+								<h2>
+									<a href="/travel">{{this.name}}</a>
+								</h2>
+								<p><strong>Price per person:</strong> ${{this.perPerson}}</p>
+								<p><strong>Length:</strong> {{this.length}}</p>
+								<p><strong>Resort:</strong> {{this.resort}}</p>
+								{{{this.description}}}
+
+								<button class="book-btn" data-tripcode="{{this.code}}">
+									Book Now
+								</button>
+
+							</li>
+							{{/each}}
+						</ul>
+						<div id="pagination" class="pagination"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{> footer}}
+	</div>
+
+	{{!-- Store all trips form backend --}}
+	<script>
+		const allTrips = {{{ tripsJSON }}};
+	</script>
+
+	{{!-- Get user input elements --}}
+	<script>
+
+		// Get references to input and dropdown elemets
+		const searchInput = document.getElementById("searchInput");
+		const priceFilter = document.getElementById("priceFilter");
+		const starFilter = document.getElementById("starFilter");
+		const sortOption = document.getElementById("sortOption");
+		const list = document.getElementById("sites");
+		let currentPage = 1;
+		const tripsPerPage = 4;
+		let currentFilteredTrips = [...allTrips];
+
+
+		// Display trips on the page
+		function renderTrips(trips) {
+
+			// Clear current list before rendering new resulrts
+			list.innerHTML = "";
+			currentFilteredTrips = trips;
+
+			const start = (currentPage - 1) * tripsPerPage;
+			const end = start + tripsPerPage;
+			const paginatedTrips = trips.slice(start, end);
+
+			// Show message if no results
+			if (trips.length === 0) {
+				list.innerHTML = "<p>No trips found.</p>";
+				document.getElementById("pagination").innerHTML = "";
+				return;
+			}
+
+			paginatedTrips.forEach(trip => {
+				const li = document.createElement("li");
+
+				li.innerHTML = `
+					<a href="/api/trips/${trip.code}">
+					<img src="images/${trip.image}" alt="Img">
+					</a>
+					<h2>
+					<a href="/api/trips/${trip.code}">${trip.name}</a>
+					</h2>
+					<p><strong>Price per person:</strong> $${trip.perPerson}</p>
+					<p><strong>Length:</strong> ${trip.length}</p>
+					<p><strong>Resort:</strong> ${trip.resort}</p>
+					${trip.description}
+					<button class="book-btn" data-tripcode="${trip.code}">
+						Book Now
+					</button>
+				`;
+
+				list.appendChild(li);
+			});
+			renderPagination(trips.length);
+		}
+
+
+
+		function renderPagination(totalTrips) {
+			const pagination = document.getElementById("pagination");
+			pagination.innerHTML = "";
+
+			const totalPages = Math.ceil(totalTrips / tripsPerPage);
+
+			for (let i = 1; i <= totalPages; i++) {
+				const button = document.createElement("button");
+				button.textContent = i;
+				button.className = i === currentPage ? "page-btn active" : "page-btn";
+
+				button.addEventListener("click", function () {
+					currentPage = i;
+					renderTrips(currentFilteredTrips);
+				});
+
+				pagination.appendChild(button);
+			}
+		}
+
+		// Filter and sort tirps based on user input
+		function filterTrips() {
+			currentPage = 1;
+
+			// Copy all trips into a new array
+			let filtered = [...allTrips];
+
+			// Filter by trip name
+			const searchValue = searchInput.value.toLowerCase();
+			if (searchValue) {
+				filtered = filtered.filter(trip =>
+					trip.name.toLowerCase().includes(searchValue)
+				);
+			}
+
+			// Filter by price
+			const maxPrice = priceFilter.value;
+			if (maxPrice) {
+				filtered = filtered.filter(trip =>
+					parseFloat(trip.perPerson) <= parseFloat(maxPrice)
+				);
+			}
+
+			const minStars = starFilter.value;
+			if (minStars) {
+				filtered = filtered.filter(trip => {
+					const match = trip.resort.match(/\d+/);
+					const stars = match ? parseInt(match[0]) : 0;
+					return stars >= parseInt(minStars);
+				});
+			}
+
+			// sort trips by price
+			if (sortOption.value === "low") {
+				filtered.sort((a, b) =>
+					parseFloat(a.perPerson) - parseFloat(b.perPerson)
+				);
+			} else if (sortOption.value === "high") {
+				filtered.sort((a, b) =>
+					parseFloat(b.perPerson) - parseFloat(a.perPerson)
+				);
+			}
+
+			renderTrips(filtered);
+		}
+
+
+
+		// Run filtering when user interacts with inputs
+		searchInput.addEventListener("input", filterTrips);
+		priceFilter.addEventListener("change", filterTrips);
+		starFilter.addEventListener("change", filterTrips);
+		sortOption.addEventListener("change", filterTrips);
+	</script>
+
+	{{!-- Debug logging all trips to console --}}
+	<script>
+		console.log(allTrips);
+	</script>
+
+	<script>
+		document.addEventListener("click", async function (e) {
+			if (e.target.classList.contains("book-btn")) {
+				const tripCode = e.target.dataset.tripcode;
+				const token = localStorage.getItem("travlr-token");
+
+				if (!token) {
+					alert("Please log in to book a trip.");
+					window.location.href = "/login";
+					return;
+				}
+
+				try {
+					const response = await fetch('/api/bookings', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': 'Bearer ' + token
+						},
+						body: JSON.stringify({ tripCode })
+					});
+
+					const data = await response.json();
+
+					if (!response.ok) {
+						alert(data.message || "Booking failed.");
+						return;
+					}
+
+					alert("Booking successful!");
+				} catch (err) {
+					console.error(err);
+					alert("Booking failed.");
+				}
+			}
+		});
+	</script>
+
+
+
+</body>
+
+</html>

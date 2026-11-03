@@ -1,0 +1,51 @@
+nav {
+background: #3f8a7f;
+  color: rgb(65, 63, 63);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+}
+
+/* Right side container */
+.navbar-end {
+  display: flex;
+  gap: 10px;
+}
+
+/* Base button style */
+.navbar-end a {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+/* Log In button (blue) */
+.navbar-end a[routerLink="login"] {
+  background-color: #1da1f2;
+  color: white;
+}
+
+.navbar-end a[routerLink="login"]:hover {
+  background-color: #0d8ddb;
+}
+
+/* Log Out button (orange) */
+.navbar-end a.active {
+  background-color: #f4a51c;
+  color: white;
+  cursor: pointer;
+}
+
+.navbar-end a.active:hover {
+  background-color: #d99117;
+}
+
+.navbar-end a span {
+  display: inline-block;
+}

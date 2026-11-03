@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <div id="background">
+        <div id="page">
+            {{> header}}
+        </div>
+
+        <div id="contents">
+            <div class="box">
+                <div>
+                    <div class="body">
+                        <h1>My Bookings</h1>
+                        <!-- Booking list will be added here with JavaScript -->
+                        <ul id="sites"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{> footer}}
+    </div>
+
+    <script>
+        // Load all bookings for the logged-in user
+        async function loadBookings() {
+            const token = localStorage.getItem("travlr-token"); // Get saved JWT token
+            const list = document.getElementById("sites"); // Get booking list container
+
+            // If user is not logged in, show message
+            if (!token) {
+                list.innerHTML = "<p>Please log in to view your bookings.</p>";
+                return;
+            }
+
+            try {
+                // Request user's bookings from API
+                const response = await fetch('/api/bookings', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                const bookings = await response.json();
+
+                // If request failed, show error message
+                if (!response.ok) {
+                    list.innerHTML = `<p>${bookings.message || 'Could not load bookings.'}</p>`;
+                    return;
+                }
+
+                // If user has no bookings, show message
+                if (!bookings.length) {
+                    list.innerHTML = "<p>You do not have any bookings yet.</p>";
+                    return;
+                }
+
+                // Clear old booking list before adding updated data
+                list.innerHTML = "";
+
+                // Loop through each booking and add it to the page
+                bookings.forEach(booking => {
+                    const trip = booking.trip; // Get trip details linked to booking
+                    const li = document.createElement("li");
+
+                    // Create the booking card content
+                    li.innerHTML = `
+            <a href="/api/trips/${trip.code}">
+              <img src="images/${trip.image}" alt="Img">
+            </a>
+            <h2>
+              <a href="/travel">${trip.name}</a>
+            </h2>
+            <p><strong>Price per person:</strong> $${trip.perPerson}</p>
+            <p><strong>Length:</strong> ${trip.length}</p>
+            <p><strong>Resort:</strong> ${trip.resort}</p>
+            ${trip.description}
+            <p><strong>Booked on:</strong> ${new Date(booking.bookingDate).toLocaleDateString()}</p>
+            <button class="delete-booking-btn" data-id="${booking._id}">
+              Cancel Booking
+            </button>
+          `;
+
+                    // Add booking item to page
+                    list.appendChild(li);
+                });
+
+            } catch (err) {
+                console.error(err);
+                list.innerHTML = "<p>Could not load bookings.</p>";
+            }
+        }
+
+        // Load bookings when page finishes loading
+        document.addEventListener("DOMContentLoaded", loadBookings);
+    </script>
+
+    <script>
+        // Delete a booking by ID
+        async function deleteBooking(id) {
+            const token = localStorage.getItem("travlr-token"); // Get saved token
+
+            // Ask user to confirm before deleting
+            const confirmDelete = confirm("Cancel this booking?");
+            if (!confirmDelete) return;
+
+            try {
+                // Send delete request to API
+                const response = await fetch(`/api/bookings/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                const data = await response.json();
+
+                // If delete fails, show error
+                if (!response.ok) {
+                    alert(data.message || "Error deleting booking");
+                    return;
+                }
+
+                // Reload bookings after successful delete
+                loadBookings();
+
+            } catch (err) {
+                console.error(err);
+                alert("Error deleting booking");
+            }
+        }
+
+        // Listen for clicks on delete buttons
+        document.addEventListener("click", function (e) {
+            if (e.target.classList.contains("delete-booking-btn")) {
+                const id = e.target.dataset.id; // Get booking ID from button
+                deleteBooking(id); // Delete selected booking
+            }
+        });
+    </script>
+
+</body>
+
+</html>

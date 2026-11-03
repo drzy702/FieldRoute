@@ -1,0 +1,56 @@
+<div *ngIf="isLoggedIn()">
+    <button (click)="addTrip()" class="btn btn-info">Add Trip</button>
+</div>
+<div class="filter-bar">
+    <input type="text" placeholder="Search trips..." [(ngModel)]="searchText" />
+
+    <select [(ngModel)]="priceFilter">
+        <option value="all">All Prices</option>
+        <option value="1000">Under $1,000</option>
+        <option value="2000">Under $2,000</option>
+        <option value="3000">Under $3,000</option>
+    </select>
+
+    <select [(ngModel)]="sortOption">
+        <option value="none">Sort By</option>
+        <option value="priceLowHigh">Price: Low to High</option>
+        <option value="priceHighLow">Price: High to Low</option>
+        <option value="nameAZ">Name: A-Z</option>
+    </select>
+
+    <select [(ngModel)]="starFilter">
+        <option value="all">All Ratings</option>
+        <option value="5">5 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="1">1 Star</option>
+    </select>
+</div>
+
+<div class="row">
+    <div *ngFor="let trip of paginatedTrips" class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <app-trip-card [trip]="trip" (deleteTripEvent)="deleteTrip($event)">
+        </app-trip-card>
+    </div>
+</div>
+
+<div class="pagination-controls">
+  <button 
+    class="btn btn-secondary"
+    (click)="previousPage()"
+    [disabled]="currentPage === 1">
+    Previous
+  </button>
+
+  <span>
+    Page {{ currentPage }} of {{ totalPages }}
+  </span>
+
+  <button 
+    class="btn btn-secondary"
+    (click)="nextPage()"
+    [disabled]="currentPage === totalPages">
+    Next
+  </button>
+</div>
