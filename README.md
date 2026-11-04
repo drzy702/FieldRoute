@@ -14,11 +14,19 @@ Available Trips, Users, Rooms, Meals, News, and About. Trips retain their add,
 edit, delete, search, filter, and pagination controls. Cards use uniform heights,
 cropped images, and scrollable descriptions so the action buttons stay aligned.
 
-The Users tab is a searchable directory of names, emails, and roles. Password
-hashes and salts are excluded from the API response. Admin routes and trip
+The Users tab supports creating accounts, searching users, editing names and
+emails, changing roles, and deleting accounts after confirmation. New accounts
+require an initial password of 8–128 characters. Password hashes and salts are
+excluded from the API response. You cannot delete yourself or demote your own
+admin account, and the last admin is protected. Users with bookings must have
+those bookings canceled before their account can be deleted.
+
+Admin routes and trip
 changes require an account whose existing `role` is `admin`; newly registered
 accounts remain customers. Admin accounts can still sign in to the customer site.
-Sign in again after a role change to obtain an updated session.
+The API checks the current account and role on every authenticated request, so
+demotion or deletion revokes access even for an existing session. Sign in again
+after promotion to refresh the admin interface.
 
 The four page editors update existing text and select photos from the site's image
 library. Changes save to the MongoDB `pages` collection and appear when the

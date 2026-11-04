@@ -19,8 +19,8 @@ export class Authentication {
   isLoggedIn(): boolean { return (this.payload()?.exp || 0) > Date.now() / 1000; }
   isAdmin(): boolean { return this.isLoggedIn() && this.payload()?.role === 'admin'; }
   getCurrentUser(): User {
-    const { email = '', name = '', role = 'customer' } = this.payload() || {};
-    return { email, name, role } as User;
+    const { _id, email = '', name = '', role = 'customer' } = this.payload() || {};
+    return { _id, email, name, role } as User;
   }
   login(user: User, password: string) { return this.tripDataService.login(user, password); }
   register(user: User, password: string): void {

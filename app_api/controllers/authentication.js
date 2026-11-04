@@ -62,7 +62,7 @@ const login = (req, res) => {
 };
 
 // Authenticate before continuing into protected handlers.
-function authenticateJWT(req, res, next) {
+async function authenticateJWT(req, res, next) {
   const match = /^Bearer (\S+)$/i.exec(req.headers.authorization || '');
   if (!match) return res.status(401).json({ message: 'Please log in.' });
   try {
@@ -70,6 +70,13 @@ function authenticateJWT(req, res, next) {
   } catch (error) {
     return res.status(401).json({ message: 'Your session has expired. Please log in again.' });
   }
+  try {
+    if (!mongoose.isObjectIdOrHexString(req.auth._id)) return res.status(401).json({ message: 'Invalid session. Please log in again.' });
+    const user = await User.findById(req.auth._id).select('name email role').lean();
+    if (!user) return res.status(401).json({ message: 'This account no longer exists.' });
+    // Use the current role rather than an old role embedded in a signed token.
+    req.auth = { ...req.auth, ...user, role: user.role || 'customer' };
+  } catch (error) { return next(error); }
   return next();
 }
 

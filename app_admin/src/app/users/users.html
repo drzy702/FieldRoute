@@ -1,16 +1,51 @@
-<div class="page-heading"><div><p class="eyebrow">ADMINISTRATION</p><h1>Users</h1><p>Registered customers and administrators.</p></div></div>
+<div class="page-heading"><div><p class="eyebrow">ADMINISTRATION</p><h1>Users</h1><p>Manage customer and administrator accounts.</p></div>
+  <button type="button" class="btn btn-primary" (click)="addUser()" [disabled]="saving() || loading()">Add user</button>
+</div>
+@if (error()) { <p role="alert" class="alert alert-danger">{{ error() }}</p> }
+@if (message()) { <p role="status" class="alert alert-success">{{ message() }}</p> }
+@if (editorOpen()) {
+  <section class="admin-panel user-editor" aria-labelledby="user-editor-title">
+    <h2 id="user-editor-title">{{ editingId() ? 'Edit user' : 'Add user' }}</h2>
+    <form #userForm="ngForm" (ngSubmit)="saveUser()">
+      <fieldset [disabled]="saving()">
+        <div class="user-fields">
+          <div><label for="user-name">Name</label><input id="user-name" name="name" [(ngModel)]="form.name" required maxlength="100" autocomplete="off"></div>
+          <div><label for="user-email">Email address</label><input id="user-email" name="email" type="email" [(ngModel)]="form.email" required email maxlength="254" autocomplete="off"></div>
+          <div><label for="user-role">Role</label><select id="user-role" name="role" [(ngModel)]="form.role" [disabled]="editingId() === currentUserId" required><option value="customer">Customer</option><option value="admin">Admin</option></select>
+            @if (editingId() === currentUserId) { <small>Your own admin role cannot be changed here.</small> }
+          </div>
+          @if (!editingId()) {
+            <div><label for="user-password">Initial password</label><input id="user-password" name="password" type="password" [(ngModel)]="form.password" required minlength="8" maxlength="128" autocomplete="new-password"><small>Use 8–128 characters.</small></div>
+          }
+        </div>
+        <p class="role-help">Admins can manage users, trips, and website content. Customers can book trips.</p>
+        <div class="user-actions"><button type="submit" class="btn btn-primary" [disabled]="userForm.invalid || saving()">{{ saving() ? 'Saving…' : editingId() ? 'Save user' : 'Create user' }}</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="closeEditor()">Cancel</button></div>
+      </fieldset>
+    </form>
+  </section>
+}
+@if (pendingDelete(); as user) {
+  <section class="admin-panel delete-confirmation" aria-label="Confirm user deletion">
+    <h2>Delete {{ user.name }}?</h2><p>This permanently deletes the account for <strong>{{ user.email }}</strong>. Users with bookings must have those bookings canceled first.</p>
+    <div class="user-actions"><button type="button" class="btn btn-danger" (click)="deleteUser()" [disabled]="saving()">{{ saving() ? 'Deleting…' : 'Delete user' }}</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="pendingDelete.set(null)" [disabled]="saving()">Cancel deletion</button></div>
+  </section>
+}
 <section class="admin-panel">
   <div class="filter-bar"><input type="search" aria-label="Search users" placeholder="Search by name or email…" [(ngModel)]="search">
     <select aria-label="Filter by role" [(ngModel)]="role"><option value="all">All roles</option><option value="admin">Admins</option><option value="customer">Customers</option></select>
   </div>
-  @if (error()) { <p role="alert" class="alert alert-danger">{{ error() }}</p> }
   @if (loading()) { <p role="status">Loading users…</p> }
-  @else if (!error()) {
+  @else {
     <p class="text-muted">{{ filteredUsers.length }} of {{ users().length }} users</p>
-    <div class="table-responsive"><table class="table align-middle"><thead><tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Role</th></tr></thead>
+    <div class="table-responsive"><table class="table align-middle"><thead><tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Role</th><th scope="col">Actions</th></tr></thead>
       <tbody>@for (user of filteredUsers; track user._id) {
-        <tr><td>{{ user.name }}</td><td>{{ user.email }}</td><td><span class="role-badge" [class.admin-role]="user.role === 'admin'">{{ user.role === 'admin' ? 'Admin' : 'Customer' }}</span></td></tr>
-      } @empty { <tr><td colspan="3">No users match your search.</td></tr> }</tbody>
+        <tr><td>{{ user.name }} @if (user._id === currentUserId) { <span class="text-muted">(you)</span> }</td><td>{{ user.email }}</td><td><span class="role-badge" [class.admin-role]="user.role === 'admin'">{{ user.role === 'admin' ? 'Admin' : 'Customer' }}</span></td>
+          <td><div class="row-actions"><button type="button" class="btn btn-sm btn-outline-primary" (click)="editUser(user)" [disabled]="saving()" [attr.aria-label]="'Edit ' + user.email">Edit</button>
+            <button type="button" class="btn btn-sm btn-outline-danger" (click)="confirmDelete(user)" [disabled]="saving() || user._id === currentUserId" [attr.aria-label]="'Delete ' + user.email" [title]="user._id === currentUserId ? 'You cannot delete your own account' : 'Delete user'">Delete</button></div></td></tr>
+      } @empty { <tr><td colspan="4">No users match your search.</td></tr> }</tbody>
     </table></div>
+    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="loadUsers()" [disabled]="saving()">Refresh users</button>
   }
 </section>

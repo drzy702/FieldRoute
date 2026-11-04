@@ -7,9 +7,16 @@ const authController = require("../controllers/authentication");
 const bookingController = require('../controllers/booking');
 const adminController = require('../controllers/admin');
 const pagesController = require('../controllers/pages');
+const usersController = require('../controllers/users');
 
 router.get('/admin/summary', authController.authenticateJWT, authController.requireAdmin, adminController.summary);
-router.get('/admin/users', authController.authenticateJWT, authController.requireAdmin, adminController.users);
+router.route('/admin/users')
+  .get(authController.authenticateJWT, authController.requireAdmin, adminController.users)
+  .post(authController.authenticateJWT, authController.requireAdmin, usersController.create);
+router.route('/admin/users/:userId')
+  .get(authController.authenticateJWT, authController.requireAdmin, usersController.read)
+  .put(authController.authenticateJWT, authController.requireAdmin, usersController.update)
+  .delete(authController.authenticateJWT, authController.requireAdmin, usersController.remove);
 router.get('/admin/images', authController.authenticateJWT, authController.requireAdmin, pagesController.images);
 router.route('/pages/:slug')
   .get(pagesController.read)
@@ -18,7 +25,7 @@ router.route('/pages/:slug')
 router.route("/register").post(authController.register);
 router.route("/login").post(authController.login);
 router.route('/bookings')
-  .post(bookingController.createBooking)
+  .post(authController.authenticateJWT, bookingController.createBooking)
   .get(authController.authenticateJWT, bookingController.getMyBookings);
 router.route('/bookings/:bookingId')
   .delete(authController.authenticateJWT, bookingController.deleteBooking);

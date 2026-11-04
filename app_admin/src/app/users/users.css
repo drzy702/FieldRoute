@@ -1,0 +1,12 @@
+.user-editor,.delete-confirmation { margin-bottom:24px; }
+h2 { font-size:22px; margin-bottom:20px; }
+.user-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.user-fields label { display:block; font-size:14px; font-weight:600; margin-bottom:8px; }
+.user-fields input,.user-fields select { width:100%; padding:10px 12px; border:1px solid #bfcec8; border-radius:6px; background:white; }
+.user-fields small { display:block; margin-top:6px; color:#627571; }
+.role-help { margin-top:20px; color:#627571; font-size:13px; }
+.user-actions,.row-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.row-actions { flex-wrap:nowrap; }
+.delete-confirmation { border-color:#e5bbaa; background:#fff9f5; }
+fieldset { min-width:0; }
+@media(max-width:650px) { .user-fields { grid-template-columns:1fr; } }
