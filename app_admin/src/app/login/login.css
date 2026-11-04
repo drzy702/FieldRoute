@@ -1,0 +1,6 @@
+.login-panel { max-width:480px; margin:45px auto; }
+h1 { font-size:30px; }
+p { color:#627571; }
+label { display:block; font-weight:600; margin-top:20px; margin-bottom:7px; }
+input { display:block; width:100%; padding:11px; border:1px solid #bfcec8; border-radius:6px; }
+button { margin-top:24px; width:100%; }

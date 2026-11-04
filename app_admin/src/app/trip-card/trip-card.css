@@ -1,18 +1,15 @@
-.btn-info {
-  background-color: #1da1f2;
-  border: none;
-  color: white;
-}
-
-.btn-info:hover {
-  background-color: #0d8ddb;
-}
-
-.btn-danger {
-  background-color: #ff6b35;
-  border: none;
-}
-
-.btn-danger:hover {
-  background-color: #e85a2a;
-}
+:host { display:block; height:100%; min-width:0; }
+.card { height:570px; display:flex; flex-direction:column; overflow:hidden; border:1px solid #dbe7e3; border-radius:10px; background:white; }
+.card-header { display:flex; align-items:center; min-height:64px; height:64px; flex-shrink:0; padding:12px 16px; margin:0; font-size:17px; font-weight:600; background:white; color:#264e42; line-height:1.2; }
+.card-img-top { display:block; width:100%; height:175px; object-fit:cover; flex-shrink:0; border-radius:0; }
+.card-body { display:flex; flex-direction:column; flex:1; padding:16px; min-height:0; }
+.card-subtitle { font-size:13px; line-height:1.6; }
+h6.card-subtitle { min-height:42px; margin-top:0; }
+p.card-subtitle { margin-top:0 !important; min-height:42px; }
+.card-text { flex:1; min-height:0; overflow-y:auto; margin-bottom:16px; font-size:14px; line-height:1.65; padding-right:6px; scrollbar-width:thin; }
+.card-actions { display:flex; gap:8px; flex-shrink:0; }
+.card-actions .btn { padding:8px 10px; font-size:13px; margin:0 !important; white-space:nowrap; }
+.btn-info { background:#267564; border-color:#267564; color:white; }
+.btn-info:hover { background:#1b5b4c; }
+.btn-danger { background:#fff6f2; border-color:#edcfc1; color:#a44527; }
+.btn-danger:hover { background:#ffe8dd; }

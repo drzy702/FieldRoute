@@ -1,24 +1,28 @@
+<div class="page-heading"><div><p class="eyebrow">TRIP MANAGEMENT</p><h1>Available trips</h1><p>Manage destinations, pricing, and getaway details.</p></div>
 <div *ngIf="isLoggedIn()">
     <button (click)="addTrip()" class="btn btn-info">Add Trip</button>
 </div>
+</div>
+<p *ngIf="loading" role="status">Loading trips…</p>
+<p *ngIf="error" class="alert alert-danger" role="alert">{{ error }}</p>
 <div class="filter-bar">
-    <input type="text" placeholder="Search trips..." [(ngModel)]="searchText" />
+    <input type="search" aria-label="Search trips" placeholder="Search trips..." [(ngModel)]="searchText" (ngModelChange)="currentPage = 1" />
 
-    <select [(ngModel)]="priceFilter">
+    <select aria-label="Filter by price" [(ngModel)]="priceFilter" (ngModelChange)="currentPage = 1">
         <option value="all">All Prices</option>
         <option value="1000">Under $1,000</option>
         <option value="2000">Under $2,000</option>
         <option value="3000">Under $3,000</option>
     </select>
 
-    <select [(ngModel)]="sortOption">
+    <select aria-label="Sort trips" [(ngModel)]="sortOption" (ngModelChange)="currentPage = 1">
         <option value="none">Sort By</option>
         <option value="priceLowHigh">Price: Low to High</option>
         <option value="priceHighLow">Price: High to Low</option>
         <option value="nameAZ">Name: A-Z</option>
     </select>
 
-    <select [(ngModel)]="starFilter">
+    <select aria-label="Filter by rating" [(ngModel)]="starFilter" (ngModelChange)="currentPage = 1">
         <option value="all">All Ratings</option>
         <option value="5">5 Stars</option>
         <option value="4">4 Stars</option>
@@ -28,12 +32,14 @@
     </select>
 </div>
 
-<div class="row">
-    <div *ngFor="let trip of paginatedTrips" class="col-12 col-sm-6 col-md-4 col-lg-3">
+<p class="results-count" *ngIf="!loading">{{ filteredTrips.length }} matching trips</p>
+<div class="trip-grid">
+    <div *ngFor="let trip of paginatedTrips" class="trip-grid-item">
         <app-trip-card [trip]="trip" (deleteTripEvent)="deleteTrip($event)">
         </app-trip-card>
     </div>
 </div>
+<p *ngIf="!loading && !error && !filteredTrips.length" class="admin-panel">No trips match your filters.</p>
 
 <div class="pagination-controls">
   <button 
@@ -50,7 +56,7 @@
   <button 
     class="btn btn-secondary"
     (click)="nextPage()"
-    [disabled]="currentPage === totalPages">
+    [disabled]="currentPage >= totalPages">
     Next
   </button>
 </div>

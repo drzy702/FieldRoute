@@ -5,6 +5,15 @@ const router = express.Router(); // Router logic
 const tripsController = require("../controllers/trips");
 const authController = require("../controllers/authentication");
 const bookingController = require('../controllers/booking');
+const adminController = require('../controllers/admin');
+const pagesController = require('../controllers/pages');
+
+router.get('/admin/summary', authController.authenticateJWT, authController.requireAdmin, adminController.summary);
+router.get('/admin/users', authController.authenticateJWT, authController.requireAdmin, adminController.users);
+router.get('/admin/images', authController.authenticateJWT, authController.requireAdmin, pagesController.images);
+router.route('/pages/:slug')
+  .get(pagesController.read)
+  .put(authController.authenticateJWT, authController.requireAdmin, pagesController.update);
 
 router.route("/register").post(authController.register);
 router.route("/login").post(authController.login);
@@ -18,16 +27,16 @@ router.route('/bookings/:bookingId')
 router
     .route("/trips")
     .get(tripsController.tripsList) // GET Method routes tripList
-    .post(authController.authenticateJWT, tripsController.tripsAddTrip); // POST Method Adds a Trip
+    .post(authController.authenticateJWT, authController.requireAdmin, tripsController.tripsAddTrip); // POST Method Adds a Trip
 
 // GET method routes tripsFindByCode - requires parameter
 // PUT Method routes tripsUpdateTrip - requres parameter
 router
     .route('/trips/:tripCode')
     .get(tripsController.tripsFindByCode)
-    .put(authController.authenticateJWT, tripsController.tripsUpdateTrip)
+    .put(authController.authenticateJWT, authController.requireAdmin, tripsController.tripsUpdateTrip)
     // Delete a trip (protected route)
-    .delete(authController.authenticateJWT, tripsController.tripsDeleteTrip);
+    .delete(authController.authenticateJWT, authController.requireAdmin, tripsController.tripsDeleteTrip);
 
 
 module.exports = router;

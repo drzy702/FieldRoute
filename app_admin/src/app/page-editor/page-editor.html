@@ -1,0 +1,30 @@
+<div class="page-heading"><div><p class="eyebrow">WEBSITE CONTENT</p><h1>{{ page()?.title || 'Page editor' }}</h1><p>Update text and photos on your customer website.</p></div>
+  @if (page(); as current) { <a class="btn btn-outline-primary" [href]="'http://localhost:3000/' + current.slug + '.html'" target="_blank" rel="noopener">View live page ↗</a> }
+</div>
+@if (error()) { <p class="alert alert-danger" role="alert">{{ error() }}</p> }
+@if (message()) { <p class="alert alert-success" role="status">{{ message() }}</p> }
+@if (loading()) { <p role="status">Loading page content…</p> }
+@if (page(); as current) {
+  <form (ngSubmit)="save()" class="editor-form">
+    <div class="editor-toolbar admin-panel"><div><strong>{{ dirty ? 'Unsaved changes' : 'All changes saved' }}</strong>
+      @if (current.updatedAt) { <small>Last saved {{ current.updatedAt | date:'medium' }}</small> }
+      @else { <small>Original website content</small> }</div>
+      <div class="editor-actions"><button type="button" class="btn btn-outline-secondary" (click)="reset()" [disabled]="!dirty || saving()">Discard changes</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!dirty || saving()">{{ saving() ? 'Saving…' : 'Save changes' }}</button></div>
+    </div>
+    <fieldset class="admin-panel editor-fields" [disabled]="saving()">
+      @for (field of current.fields; track field.key) {
+        <div class="editor-field"><label [for]="field.key">{{ field.label }}</label>
+          @if (field.type === 'textarea') {
+            <textarea [id]="field.key" [name]="field.key" [(ngModel)]="values[field.key]" rows="4" required maxlength="20000"></textarea>
+          } @else if (field.type === 'image') {
+            <div class="image-field"><img [src]="'http://localhost:3000/images/' + values[field.key]" [alt]="field.label">
+              <select [id]="field.key" [name]="field.key" [(ngModel)]="values[field.key]" required>@for (image of images(); track image) { <option [value]="image">{{ image }}</option> }</select></div>
+          } @else {
+            <input [id]="field.key" [name]="field.key" [(ngModel)]="values[field.key]" required maxlength="20000">
+          }
+        </div>
+      }
+    </fieldset>
+  </form>
+}

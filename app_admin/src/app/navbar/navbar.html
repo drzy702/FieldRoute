@@ -1,15 +1,20 @@
-<nav class="navbar navbar-expand">
-    <a class="navbar-brand" href="#"><img src="/assets/images/logo.png" /></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-end">
-        <a class="nav-item" routerLink="login" *ngIf="!isLoggedIn()">
-            <span class="has-icon-left">Log In</span>
-        </a>
-        <a class="nav-item active" (click)="onLogout()" *ngIf="isLoggedIn()">
-            <span class="has-icon-left">Log Out</span>
-        </a>
+<header class="admin-header">
+  <div class="header-inner">
+    <a class="brand" routerLink="/" aria-label="Travlr admin dashboard"><img src="/assets/images/logo.png" alt="Travlr Getaways"><span>ADMIN</span></a>
+    <div class="header-actions"><a href="http://localhost:3000/" target="_blank" rel="noopener">View website ↗</a>
+      @if (isLoggedIn()) { <button type="button" (click)="onLogout()">Log Out</button> }
+      @else { <a routerLink="/login" class="login-link">Log In</a> }
     </div>
-</nav>
+  </div>
+  @if (isAdmin()) {
+    <nav class="admin-tabs" aria-label="Admin sections">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" ariaCurrentWhenActive="page">Dashboard</a>
+      <a routerLink="/trips" routerLinkActive="active" ariaCurrentWhenActive="page">Available Trips</a>
+      <a routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">Users</a>
+      <a routerLink="/pages/rooms" routerLinkActive="active" ariaCurrentWhenActive="page">Rooms</a>
+      <a routerLink="/pages/meals" routerLinkActive="active" ariaCurrentWhenActive="page">Meals</a>
+      <a routerLink="/pages/news" routerLinkActive="active" ariaCurrentWhenActive="page">News</a>
+      <a routerLink="/pages/about" routerLinkActive="active" ariaCurrentWhenActive="page">About</a>
+    </nav>
+  }
+</header>

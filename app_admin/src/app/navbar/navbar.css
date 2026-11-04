@@ -1,51 +1,14 @@
-nav {
-background: #3f8a7f;
-  color: rgb(65, 63, 63);
-}
-
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 30px;
-}
-
-/* Right side container */
-.navbar-end {
-  display: flex;
-  gap: 10px;
-}
-
-/* Base button style */
-.navbar-end a {
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: 0.2s ease;
-}
-
-/* Log In button (blue) */
-.navbar-end a[routerLink="login"] {
-  background-color: #1da1f2;
-  color: white;
-}
-
-.navbar-end a[routerLink="login"]:hover {
-  background-color: #0d8ddb;
-}
-
-/* Log Out button (orange) */
-.navbar-end a.active {
-  background-color: #f4a51c;
-  color: white;
-  cursor: pointer;
-}
-
-.navbar-end a.active:hover {
-  background-color: #d99117;
-}
-
-.navbar-end a span {
-  display: inline-block;
-}
+.admin-header { background:#22695e; color:white; }
+.header-inner,.admin-tabs { max-width:1220px; margin:0 auto; padding:0 28px; }
+.header-inner { min-height:105px; display:flex; justify-content:space-between; align-items:center; gap:20px; }
+.brand { display:flex; align-items:center; gap:22px; text-decoration:none; }
+.brand img { width:175px; height:auto; }
+.brand span { font-size:10px; letter-spacing:2px; color:#d7eee5; border-left:1px solid #5f978c; padding-left:22px; }
+.header-actions { display:flex; align-items:center; gap:24px; font-size:14px; }
+.header-actions a { color:#e9f4ef; text-decoration:none; }
+.header-actions button,.login-link { background:#f4bb57; border:0; border-radius:6px; padding:9px 17px; color:#293d33 !important; font-weight:600; }
+.admin-tabs { display:flex; gap:5px; overflow-x:auto; }
+.admin-tabs a { padding:15px 20px; white-space:nowrap; color:#d7eae3; text-decoration:none; font-size:14px; font-weight:500; border-radius:7px 7px 0 0; }
+.admin-tabs a:hover { background:#397e73; color:white; }
+.admin-tabs a.active { background:#f3f6f3; color:#205b4e; }
+@media(max-width:650px) { .header-inner,.admin-tabs { padding-left:16px; padding-right:16px; } .header-actions { gap:12px; } .header-actions > a:first-child,.brand span { display:none; } .admin-tabs a { padding:13px; } .brand img { width:145px; } }

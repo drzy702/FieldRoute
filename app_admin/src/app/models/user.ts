@@ -1,6 +1,7 @@
 export class User {
     email: string; 
-    name: string; 
+    name: string;
+    role?: 'admin' | 'customer';
  
     constructor() 
     { 

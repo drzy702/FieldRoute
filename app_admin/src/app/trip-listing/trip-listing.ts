@@ -18,7 +18,9 @@ import { FormsModule } from '@angular/forms';
   providers: [TripData],
 })
 export class TripListing implements OnInit {
-  trips!: Trip[];
+  trips: Trip[] = [];
+  loading = true;
+  error = '';
   message: string = '';
   currentPage: number = 1;
   pageSize: number = 4;
@@ -90,7 +92,7 @@ export class TripListing implements OnInit {
   }
 
   public get totalPages(): number {
-    return Math.ceil(this.filteredTrips.length / this.pageSize);
+    return Math.max(1, Math.ceil(this.filteredTrips.length / this.pageSize));
   }
 
   public nextPage(): void {
@@ -120,7 +122,8 @@ export class TripListing implements OnInit {
         this.getStuff();
       },
       error: (error: any) => {
-        console.log('Delete error: ' + error);
+        this.error = error.error?.message || 'This trip could not be deleted.';
+        this.cdr.detectChanges();
       },
     });
   }
@@ -129,6 +132,8 @@ export class TripListing implements OnInit {
     this.tripData.getTrips().subscribe({
       next: (value: any) => {
         this.trips = value;
+        this.loading = false;
+        this.currentPage = Math.min(this.currentPage, this.totalPages);
         if (value.length > 0) {
           this.message = 'There are ' + value.length + ' trips available.';
         } else {
@@ -139,7 +144,9 @@ export class TripListing implements OnInit {
         this.cdr.detectChanges();
       },
       error: (error: any) => {
-        console.log('Error: ' + error);
+        this.loading = false;
+        this.error = 'Trips could not be loaded. Please refresh to try again.';
+        this.cdr.detectChanges();
       },
     });
   }

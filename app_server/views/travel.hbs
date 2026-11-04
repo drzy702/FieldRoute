@@ -12,75 +12,74 @@
 	<div id="background">
 		<div id="page">
 			{{> header}}
-		</div>
-		<div id="contents">
-			<div class="box">
-				<div>
-					<div class="body">
-						<h1>Travel</h1>
+			<div id="contents">
+				<div class="box">
+					<div>
+						<div class="body">
+							<h1>Travel</h1>
 
-						{{!-- Search and filter controls for trips --}}
-						<div style="margin-bottom: 20px;">
-							<input type="text" id="searchInput" placeholder="Search trips..." />
+							{{!-- Search and filter controls for trips --}}
+							<div style="margin-bottom: 20px;">
+								<input type="text" id="searchInput" placeholder="Search trips..." />
 
-							{{!-- Filter by max price --}}
-							<select id="priceFilter">
-								<option value="">All Prices</option>
-								<option value="1000">Under $1000</option>
-								<option value="2000">Under $2000</option>
-								<option value="3000">Under $3000</option>
-							</select>
+								{{!-- Filter by max price --}}
+								<select id="priceFilter">
+									<option value="">All Prices</option>
+									<option value="1000">Under $1000</option>
+									<option value="2000">Under $2000</option>
+									<option value="3000">Under $3000</option>
+								</select>
 
-							{{!-- Filter by star rating --}}
-							<select id="starFilter">
-								<option value="">All Ratings</option>
-								<option value="5">5 Stars Only</option>
-								<option value="4">4+ Stars</option>
-								<option value="3">3+ Stars</option>
-								<option value="2">2+ Stars</option>
-							</select>
+								{{!-- Filter by star rating --}}
+								<select id="starFilter">
+									<option value="">All Ratings</option>
+									<option value="5">5 Stars Only</option>
+									<option value="4">4+ Stars</option>
+									<option value="3">3+ Stars</option>
+									<option value="2">2+ Stars</option>
+								</select>
 
 
-							{{!-- Sort trips by price --}}
-							<select id="sortOption">
-								<option value="">Sort By</option>
-								<option value="low">Price: Low to High</option>
-								<option value="high">Price: High to Low</option>
-							</select>
-						</div>
-						<ul id="sites">
-							{{#each trips}}
-							{{!-- <li>
-								<a href="error.hbs"><img src="images/{{this.image}}" alt="Img" </a>
-									<h2><a href="/travel">{{this.name}}</a></h2>
+								{{!-- Sort trips by price --}}
+								<select id="sortOption">
+									<option value="">Sort By</option>
+									<option value="low">Price: Low to High</option>
+									<option value="high">Price: High to Low</option>
+								</select>
+							</div>
+							<ul id="sites">
+								{{#each trips}}
+								{{!-- <li>
+									<a href="error.hbs"><img src="images/{{this.image}}" alt="Img" </a>
+										<h2><a href="/travel">{{this.name}}</a></h2>
+										{{{this.description}}}
+								</li> --}}
+								<li>
+									<a href="/api/trips/{{this.code}}">
+										<img src="images/{{this.image}}" alt="Img">
+									</a>
+
+									<h2>
+										<a href="/travel">{{this.name}}</a>
+									</h2>
+									<p><strong>Price per person:</strong> ${{this.perPerson}}</p>
+									<p><strong>Length:</strong> {{this.length}}</p>
+									<p><strong>Resort:</strong> {{this.resort}}</p>
 									{{{this.description}}}
-							</li> --}}
-							<li>
-								<a href="/api/trips/{{this.code}}">
-									<img src="images/{{this.image}}" alt="Img">
-								</a>
 
-								<h2>
-									<a href="/travel">{{this.name}}</a>
-								</h2>
-								<p><strong>Price per person:</strong> ${{this.perPerson}}</p>
-								<p><strong>Length:</strong> {{this.length}}</p>
-								<p><strong>Resort:</strong> {{this.resort}}</p>
-								{{{this.description}}}
+									<button class="book-btn" data-tripcode="{{this.code}}">
+										Book Now
+									</button>
 
-								<button class="book-btn" data-tripcode="{{this.code}}">
-									Book Now
-								</button>
-
-							</li>
-							{{/each}}
-						</ul>
-						<div id="pagination" class="pagination"></div>
+								</li>
+								{{/each}}
+							</ul>
+							<div id="pagination" class="pagination"></div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	{{> footer}}
 	</div>
 

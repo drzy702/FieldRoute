@@ -1,28 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { RouterLink, RouterLinkActive } from '@angular/router'; 
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Authentication } from '../services/authentication';
 
-@Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
-})
-export class Navbar implements OnInit {
-constructor( 
-    private authenticationService: Authentication
-  ) { } 
- 
-  ngOnInit() { } 
-   
-  public isLoggedIn(): boolean { 
-    return this.authenticationService.isLoggedIn(); 
-  } 
- 
-  public onLogout(): void { 
-    return this.authenticationService.logout(); 
+@Component({ selector: 'app-navbar', imports: [RouterLink, RouterLinkActive], templateUrl: './navbar.html', styleUrl: './navbar.css' })
+export class Navbar {
+  private authentication = inject(Authentication);
+  private router = inject(Router);
+  isLoggedIn() { return this.authentication.isLoggedIn(); }
+  isAdmin() { return this.authentication.isAdmin(); }
+  onLogout() {
+    this.router.navigate(['/login']).then(navigated => {
+      if (navigated) this.authentication.logout();
+    });
   }
 }

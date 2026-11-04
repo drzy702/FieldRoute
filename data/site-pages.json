@@ -1,0 +1,404 @@
+{
+  "rooms": {
+    "slug": "rooms",
+    "title": "Rooms",
+    "fields": [
+      {
+        "key": "field-1",
+        "label": "Rooms — heading",
+        "type": "text",
+        "selector": "#contents .body > h1:nth-of-type(1)",
+        "value": "Rooms"
+      },
+      {
+        "key": "field-2",
+        "label": "First Class Room — image",
+        "type": "image",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+        "value": "first-class.jpg"
+      },
+      {
+        "key": "field-3",
+        "label": "First Class Room — heading",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(1) > h2:nth-of-type(1) > a:nth-of-type(1)",
+        "value": "First Class Room"
+      },
+      {
+        "key": "field-4",
+        "label": "First Class Room — description",
+        "type": "textarea",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(1) > p:nth-of-type(1)",
+        "value": "Cras dui sapien, feugiat vitae tristique ut, lobortis tempor orci. Donec pulvinar sagittis metus ut tristique. Pellentes que habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas idios."
+      },
+      {
+        "key": "field-5",
+        "label": "First Class Room — rate",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(1) > span:nth-of-type(1)",
+        "value": "Rate: 220 / Day"
+      },
+      {
+        "key": "field-6",
+        "label": "Deluxe Room — image",
+        "type": "image",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1) > img:nth-of-type(1)",
+        "value": "deluxe.jpg"
+      },
+      {
+        "key": "field-7",
+        "label": "Deluxe Room — heading",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(2) > h2:nth-of-type(1) > a:nth-of-type(1)",
+        "value": "Deluxe Room"
+      },
+      {
+        "key": "field-8",
+        "label": "Deluxe Room — description",
+        "type": "textarea",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(2) > p:nth-of-type(1)",
+        "value": "Sed et augue lorem. In sit amet placerat arcu. Mauris volutpat ipsum ac justo mollis vel vestibulum orci gravida. Vestibulum sit amet porttitor odio. Nulla facilisi. Fusce at pretium felis."
+      },
+      {
+        "key": "field-9",
+        "label": "Deluxe Room — rate",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(2) > span:nth-of-type(1)",
+        "value": "Rate: 150 / Day"
+      },
+      {
+        "key": "field-10",
+        "label": "Suite Room — image",
+        "type": "image",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1) > img:nth-of-type(1)",
+        "value": "suite.jpg"
+      },
+      {
+        "key": "field-11",
+        "label": "Suite Room — heading",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(3) > h2:nth-of-type(1) > a:nth-of-type(1)",
+        "value": "Suite Room"
+      },
+      {
+        "key": "field-12",
+        "label": "Suite Room — description",
+        "type": "textarea",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(3) > p:nth-of-type(1)",
+        "value": "Sed et augue lorem. In sit amet placerat arcu. Mauris volutpat ipsum ac justo mollis vel vestibulum orci gravida. Vestibulum sit amet porttitor odio. Nulla facilisi. Fusce at pretium felis."
+      },
+      {
+        "key": "field-13",
+        "label": "Suite Room — rate",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(3) > span:nth-of-type(1)",
+        "value": "Rate: 180 / Day"
+      }
+    ]
+  },
+  "meals": {
+    "slug": "meals",
+    "title": "Meals",
+    "fields": [
+      {
+        "key": "field-1",
+        "label": "Meals — heading",
+        "type": "text",
+        "selector": "#contents .body > h1:nth-of-type(1)",
+        "value": "Meals"
+      },
+      {
+        "key": "field-2",
+        "label": "SeaFood Special — heading",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(1) > h2:nth-of-type(1) > a:nth-of-type(1)",
+        "value": "SeaFood Special"
+      },
+      {
+        "key": "field-3",
+        "label": "SeaFood Special — image",
+        "type": "image",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+        "value": "seafoods.jpg"
+      },
+      {
+        "key": "field-4",
+        "label": "SeaFood Special — description",
+        "type": "textarea",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1)",
+        "value": "Fried Salmon Special I'm a product overview. Here you can write more information about your product. Buyers like to know ..."
+      },
+      {
+        "key": "field-5",
+        "label": "Sumptuous Desserts — heading",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(2) > h2:nth-of-type(1) > a:nth-of-type(1)",
+        "value": "Sumptuous Desserts"
+      },
+      {
+        "key": "field-6",
+        "label": "Sumptuous Desserts — image",
+        "type": "image",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+        "value": "desserts.jpg"
+      },
+      {
+        "key": "field-7",
+        "label": "Sumptuous Desserts — description",
+        "type": "textarea",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1)",
+        "value": "Choco Ice Cream Sandwich I'm a product overview. Here you can write more information about your product. Buyers like to know ..."
+      },
+      {
+        "key": "field-8",
+        "label": "Buffet — heading",
+        "type": "text",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(3) > h2:nth-of-type(1) > a:nth-of-type(1)",
+        "value": "Buffet"
+      },
+      {
+        "key": "field-9",
+        "label": "Buffet — image",
+        "type": "image",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+        "value": "buffet.jpg"
+      },
+      {
+        "key": "field-10",
+        "label": "Buffet — description",
+        "type": "textarea",
+        "selector": "#contents .body > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > p:nth-of-type(1)",
+        "value": "Mixed Buffet I'm a product overview. Here you can write more information about your product. Buyers like to know ..."
+      }
+    ]
+  },
+  "news": {
+    "slug": "news",
+    "title": "News",
+    "fields": [
+      {
+        "key": "field-1",
+        "label": "Latest News — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > h3:nth-of-type(1)",
+        "value": "Latest News"
+      },
+      {
+        "key": "field-2",
+        "label": "Latest News — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)",
+        "value": "2023 Best Beaches Contest Winners"
+      },
+      {
+        "key": "field-3",
+        "label": "Latest News — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)",
+        "value": "Top 10 Diving Spots"
+      },
+      {
+        "key": "field-4",
+        "label": "Latest News — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)",
+        "value": "Fishing ban to be implemented this year"
+      },
+      {
+        "key": "field-5",
+        "label": "Latest News — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)",
+        "value": "Lifeguard saves child from drowning"
+      },
+      {
+        "key": "field-6",
+        "label": "Vaction Tips — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > h3:nth-of-type(2)",
+        "value": "Vaction Tips"
+      },
+      {
+        "key": "field-7",
+        "label": "Vaction Tips — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(2) > li:nth-of-type(1) > a:nth-of-type(1)",
+        "value": "What to bring on the beach?"
+      },
+      {
+        "key": "field-8",
+        "label": "Vaction Tips — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(2) > li:nth-of-type(2) > a:nth-of-type(1)",
+        "value": "Planning Fun Activities"
+      },
+      {
+        "key": "field-9",
+        "label": "Vaction Tips — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(2) > li:nth-of-type(3) > a:nth-of-type(1)",
+        "value": "Diving Checklist"
+      },
+      {
+        "key": "field-10",
+        "label": "Vaction Tips — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(2) > li:nth-of-type(4) > a:nth-of-type(1)",
+        "value": "First Aid"
+      },
+      {
+        "key": "field-11",
+        "label": "Vaction Tips — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(2) > li:nth-of-type(5) > a:nth-of-type(1)",
+        "value": "How to Build a Sand Castle?"
+      },
+      {
+        "key": "field-12",
+        "label": "Vaction Tips — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > ul:nth-of-type(2) > li:nth-of-type(6) > a:nth-of-type(1)",
+        "value": "Tanning Tips"
+      },
+      {
+        "key": "field-13",
+        "label": "News — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(2) > h1:nth-of-type(1)",
+        "value": "News"
+      },
+      {
+        "key": "field-14",
+        "label": "News — image",
+        "type": "image",
+        "selector": "#contents .body > div:nth-of-type(2) > img:nth-of-type(1)",
+        "value": "kayak.jpg"
+      },
+      {
+        "key": "field-15",
+        "label": "Experience Kayaking! — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(2) > h2:nth-of-type(1)",
+        "value": "Experience Kayaking!"
+      },
+      {
+        "key": "field-16",
+        "label": "Experience Kayaking! — date and author",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(2) > span:nth-of-type(1)",
+        "value": "April 03, 2023 by: Juan De La Cruz"
+      },
+      {
+        "key": "field-17",
+        "label": "Experience Kayaking! — description",
+        "type": "textarea",
+        "selector": "#contents .body > div:nth-of-type(2) > p:nth-of-type(1)",
+        "value": "Sed et augue lorem. In sit amet placerat arcu. Mauris volutpat ipsum ac justo mollis vel vestibulum orci gravida. Vestibulum sit amet porttitor odio. Nulla facilisi. Fusce at pretium felis. Sed consequat libero ut turpis venenatis ut aliquam risus semper. Etiam convallis mi vel risus pretium sodales. Etiam nunc lorem, ullamcorper vitae laoreet id, rutrum et tortor. Vivamus luctus, lacus id egestas facilisis, nunc nunc ultricies lorem, vitae pulvinar nibh urna vel velit."
+      },
+      {
+        "key": "field-18",
+        "label": "Experience Kayaking! — description",
+        "type": "textarea",
+        "selector": "#contents .body > div:nth-of-type(2) > p:nth-of-type(2)",
+        "value": "Cras dui sapien, feugiat vitae tristique ut, lobortis tempor orci. Donec pulvinar sagittis metus ut tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Nulla at nunc sit amet justo cursus imperdiet. Mauris est leo, placerat nec eleifend eu, facilisis id dolor. Donec nisi nibh, elementum vitae imperdiet non, placerat et felis. Maecenas scelerisque odio quis arcu fringilla malesuada. Nulla facilisi. In libero nulla, fermentum ut pretium ac, pharetra et eros."
+      },
+      {
+        "key": "field-19",
+        "label": "Experience Kayaking! — description",
+        "type": "textarea",
+        "selector": "#contents .body > div:nth-of-type(2) > p:nth-of-type(3)",
+        "value": "Phasellus viverra fringilla lacus, malesuada blandit velit iaculis dignissim. Suspendisse rutrum massa mauris. Donec quis tempus elit.Integer magna leo, posuere et dignissim vitae, porttitor at odio. Pellentesque a metus nec magna placerat volutpat."
+      }
+    ]
+  },
+  "about": {
+    "slug": "about",
+    "title": "About",
+    "fields": [
+      {
+        "key": "field-1",
+        "label": "About — heading",
+        "type": "text",
+        "selector": "#contents .body > h1:nth-of-type(1)",
+        "value": "About"
+      },
+      {
+        "key": "field-2",
+        "label": "We Have Free Templates for Everyone — heading",
+        "type": "text",
+        "selector": "#contents .body > h2:nth-of-type(1)",
+        "value": "We Have Free Templates for Everyone"
+      },
+      {
+        "key": "field-3",
+        "label": "We Have Free Templates for Everyone — description",
+        "type": "textarea",
+        "selector": "#contents .body > p:nth-of-type(1)",
+        "value": "Our website templates are created with inspiration, checked for quality and originality and meticulously sliced and coded. What's more, they're absolutely free! You can do a lot with them. You can modify them. You can use them to design websites for clients, so long as you agree with the Terms of Use. You can even remove all our links if you want to."
+      },
+      {
+        "key": "field-4",
+        "label": "We Have Free Templates for Everyone — description",
+        "type": "textarea",
+        "selector": "#contents .body > p:nth-of-type(2)",
+        "value": "We Have More Templates for You. Looking for more templates? Just browse through all our Free Website Templates and find what you're looking for. But if you don't find any website template you can use, you can try our Free Web Design service and tell us all about it. Maybe you're looking for something different, something special. And we love the challenge of doing something different and something special."
+      },
+      {
+        "key": "field-5",
+        "label": "Our Crews — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > h2:nth-of-type(1)",
+        "value": "Our Crews"
+      },
+      {
+        "key": "field-6",
+        "label": "Our Crews — description",
+        "type": "textarea",
+        "selector": "#contents .body > div:nth-of-type(1) > p:nth-of-type(1)",
+        "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a arcu ipsum."
+      },
+      {
+        "key": "field-7",
+        "label": "Amenities — heading",
+        "type": "text",
+        "selector": "#contents .body > div:nth-of-type(1) > h2:nth-of-type(2)",
+        "value": "Amenities"
+      },
+      {
+        "key": "field-8",
+        "label": "Amenities — description",
+        "type": "textarea",
+        "selector": "#contents .body > div:nth-of-type(1) > p:nth-of-type(2)",
+        "value": "Phasellus porta ultrices lorem vel luctus.Cras sodales nulla vitae eros fermentum consequat. Aenean at purus odio."
+      },
+      {
+        "key": "field-9",
+        "label": "Be Part of Our Community — heading",
+        "type": "text",
+        "selector": "#contents .body > h2:nth-of-type(2)",
+        "value": "Be Part of Our Community"
+      },
+      {
+        "key": "field-10",
+        "label": "Be Part of Our Community — description",
+        "type": "textarea",
+        "selector": "#contents .body > p:nth-of-type(3)",
+        "value": "If you're experiencing issues and concerns about this website template, join the discussion on our forum and meet other people in the community who share the same interests with you."
+      },
+      {
+        "key": "field-11",
+        "label": "Template details — heading",
+        "type": "text",
+        "selector": "#contents .body > h2:nth-of-type(3)",
+        "value": "Template details"
+      },
+      {
+        "key": "field-12",
+        "label": "Template details — description",
+        "type": "textarea",
+        "selector": "#contents .body > p:nth-of-type(4)",
+        "value": "Design version 14. Code version 4. Website Template details, discussion and updates for this Travlr Getaways Web Template. Website Template design by Free Website Templates. Please feel free to remove some or all the text and links of this page and replace it with your own About content."
+      }
+    ]
+  }
+}

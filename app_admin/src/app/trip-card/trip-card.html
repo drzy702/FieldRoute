@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-header">{{ trip.name }}</div>
-    <img src="assets/images/{{ trip.image }}" alt="trip thumbnail" class="card-img-top">
+    <h2 class="card-header">{{ trip.name }}</h2>
+    <img src="http://localhost:3000/images/{{ trip.image }}" [alt]="trip.name" class="card-img-top">
     <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">
             {{ trip.resort }}
@@ -8,9 +8,8 @@
         <p class="card-subtitle mt-3 mb-3 text-muted">
             {{trip.length}} only {{trip.perPerson|currency:'USD':'symbol'}} per person
         </p>
-        <p class="card-text" [innerHTML]="trip.description">
-        </p>
-        <div *ngIf="isLoggedIn()">
+        <div class="card-text" [innerHTML]="trip.description" tabindex="0" [attr.aria-label]="trip.name + ' description'"></div>
+        <div class="card-actions" *ngIf="isLoggedIn()">
             <button (click)="editTrip(trip)" class="btn btn-info">Edit Trip</button>
 
             <!-- Delete selected trip -->

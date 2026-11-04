@@ -1,94 +1,32 @@
-import { Component, OnInit } from '@angular/core'; 
-import { CommonModule } from '@angular/common'; 
-import { FormsModule } from "@angular/forms"; 
-import { Router } from '@angular/router'; 
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Authentication } from '../services/authentication';
 import { User } from '../models/user';
 
-@Component({
-  selector: 'app-login',
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
-})
-
+@Component({ selector: 'app-login', imports: [FormsModule], templateUrl: './login.html', styleUrl: './login.css' })
 export class Login {
-
-   public formError: string = ''; 
-  submitted = false; 
- 
-  credentials = { 
-    name: '', 
-    email: '', 
-    password: '' 
-  }
-
-  constructor( 
-    private router: Router, 
-    private authenticationService: Authentication
-  ) { } 
- 
-  ngOnInit(): void { 
-  } 
-
-  public onLoginSubmit(): void { 
-    this.formError = ''; 
-    if (!this.credentials.email || !this.credentials.password) { 
-      this.formError = 'All fields are required, please try again';
-      return;
-    } 
-      this.doLogin(); 
-  }
-
-  // private doLogin(): void { 
-  //   let newUser = { 
-  //     name: this.credentials.name, 
-  //     email: this.credentials.email 
-  //   } as User; 
- 
-  //   // console.log('LoginComponent::doLogin'); 
-  //   // console.log(this.credentials); 
-
-  //   this.authenticationService.login(newUser, 
-  //   this.credentials.password); 
- 
-  //   if(this.authenticationService.isLoggedIn()) 
-  //   { 
-  //     // console.log('Router::Direct'); 
-  //     this.router.navigate(['']); 
-  //   } else { 
-  //     var timer = setTimeout(() => { 
-  //     if(this.authenticationService.isLoggedIn()) 
-  //     { 
-  //       // console.log('Router::Pause'); 
-  //       this.router.navigate(['']); 
-  //     }},3000); 
-  //   } 
-  // } 
-
-  // Runs when user clicks "Sign In"
-private doLogin(): void {
-
-  // Create user object with email only (no name needed for login)
-  const newUser = {
-    email: this.credentials.email
-  } as User;
-
-  // Call login and wait for response
-  this.authenticationService.login(newUser, this.credentials.password)
-    .subscribe({
-      next: (value: any) => {
-        // If login is successful, save the token
-        this.authenticationService.saveToken(value.token);
-
-        // Redirect to admin/dashboard page
-        this.router.navigate(['']);
+  private router = inject(Router);
+  private authentication = inject(Authentication);
+  readonly formError = signal('');
+  readonly submitting = signal(false);
+  credentials = { email: '', password: '' };
+  onLoginSubmit() {
+    this.formError.set('');
+    if (!this.credentials.email || !this.credentials.password || this.submitting()) return;
+    this.submitting.set(true);
+    this.authentication.login({ email: this.credentials.email } as User, this.credentials.password).subscribe({
+      next: response => {
+        this.authentication.saveToken(response.token);
+        this.submitting.set(false);
+        if (!this.authentication.isAdmin()) {
+          this.authentication.logout();
+          this.formError.set('This account is a customer account. Please sign in with an admin account.');
+          return;
+        }
+        this.router.navigate(['/']);
       },
-      error: (err) => {
-        // If login fails, show error message on screen
-        this.formError = err.error?.message || 'Invalid email or password';
-      }
+      error: error => { this.submitting.set(false); this.formError.set(error.error?.message || 'Unable to sign in. Please try again.'); },
     });
-}
-
+  }
 }

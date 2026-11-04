@@ -1,0 +1,24 @@
+<section class="dashboard-welcome">
+  <div><p class="eyebrow">TRAVLR ADMINISTRATION</p>
+    <h1>Welcome back, {{ user.name }}.</h1>
+    <p>Manage your getaways and keep your guest experience up to date.</p>
+  </div>
+  <a class="btn btn-primary" routerLink="/trips">Manage trips <span aria-hidden="true">↗</span></a>
+</section>
+@if (error()) { <p class="alert alert-danger" role="alert">{{ error() }}</p> }
+<section class="stats-grid" aria-label="Site overview">
+  <a routerLink="/trips" class="stat-card"><span>Available trips</span><strong>{{ summary()?.trips ?? '…' }}</strong><span class="stat-link">View all trips →</span></a>
+  <a routerLink="/users" class="stat-card"><span>Registered users</span><strong>{{ summary()?.users ?? '…' }}</strong><span class="stat-link">View users →</span></a>
+  <div class="stat-card"><span>Website pages</span><strong>{{ summary()?.pages ?? '…' }}</strong><span>{{ summary()?.editedPages ?? '…' }} customized in the editor</span></div>
+</section>
+<div class="section-heading"><div><p class="eyebrow">YOUR WEBSITE</p><h2>Make every page feel like Travlr.</h2></div>
+  <a href="http://localhost:3000/" target="_blank" rel="noopener">View customer site ↗</a>
+</div>
+<section class="page-grid" aria-label="Manage website pages">
+  @for (page of pages; track page.slug) {
+    <a [routerLink]="['/pages', page.slug]" class="page-tile">
+      <img [src]="'http://localhost:3000/images/' + page.image" alt="">
+      <div><h3>{{ page.title }}</h3><p>{{ page.description }}</p><span>Edit page →</span></div>
+    </a>
+  }
+</section>

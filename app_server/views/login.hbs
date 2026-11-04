@@ -11,34 +11,35 @@
   <div id="background">
     <div id="page">
       {{> header}}
-    </div>
 
-    <div id="contents">
-      <div class="box">
-        <div>
-          <div class="body">
-            <h1>Login</h1>
+      <div id="contents">
+        <div class="box">
+          <div>
+            <div class="body">
+              <h1>Login</h1>
 
-            <form id="loginForm" class="auth-form">
-              <p>
-                <label for="email">Email</label><br>
-                <input type="email" id="email" placeholder="Email" required />
-              </p>
+              <form id="loginForm" class="auth-form">
+                <p>
+                  <label for="email">Email</label><br>
+                  <input type="email" id="email" placeholder="Email" required />
+                </p>
 
-              <p>
-                <label for="password">Password</label><br>
-                <input type="password" id="password" placeholder="Password" required />
-              </p>
+                <p>
+                  <label for="password">Password</label><br>
+                  <input type="password" id="password" placeholder="Password" required />
+                </p>
 
-              <p>
-                <button type="submit" class="btn">Login</button>
-              </p>
-            </form>
+                <p>
+                  <button type="submit" class="btn">Login</button>
+                </p>
+              </form>
 
-            <p id="loginMessage"></p>
+              <p id="loginMessage"></p>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
 
     {{> footer}}
